@@ -13,12 +13,17 @@ public class ApostaController {
     private ApostaService apostaService;
 
     @GetMapping
-    public List<Aposta> listar() {
-        return apostaService.listar();
+    public List<Aposta> listar(@RequestParam(required = false) String status) {
+        return apostaService.listar(status);
     }
 
     @PostMapping
     public void salvar(@RequestBody Aposta aposta) {
         apostaService.salvar(aposta);
+    }
+
+    @GetMapping("/{id}")
+    public Aposta verificaAposta(@PathVariable String id) {
+        return apostaService.verificaaposta(id);
     }
 }
