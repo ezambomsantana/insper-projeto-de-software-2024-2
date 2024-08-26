@@ -20,7 +20,7 @@ public class ApostaService {
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<RetornarPartidaDTO> partida = restTemplate.getForEntity(
-                "http://localhost:8080/partida/" + aposta.getIdPartida(),
+                "http://3.88.6.154:8080/partida/" + aposta.getIdPartida(),
                 RetornarPartidaDTO.class);
 
 
@@ -52,7 +52,7 @@ public class ApostaService {
 
         RestTemplate restTemplate = new RestTemplate();
         RetornarPartidaDTO partida =  restTemplate.getForObject(
-                "http://localhost:8080/partida/" + aposta.getIdPartida() ,
+                "http://3.88.6.154:8080/partida/" + aposta.getIdPartida() ,
                 RetornarPartidaDTO.class);
 
         if (partida != null){
