@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class ApostaService {
     @Autowired
     private ApostaRepository apostaRepository;
 
-    public void salvar(Aposta aposta) {
+    public Aposta salvar(Aposta aposta) {
         aposta.setId(UUID.randomUUID().toString());
 
         RestTemplate restTemplate = new RestTemplate();
@@ -27,7 +28,11 @@ public class ApostaService {
 
         if (partida.getStatusCode().is2xxSuccessful())  {
             aposta.setStatus("REALIZADA");
-            apostaRepository.save(aposta);
+            aposta.setDataAposta(LocalDateTime.now());
+
+            return apostaRepository.save(aposta);
+        } else {
+            throw new PartidaNaoEncontradaException("Partida não encontrada");
         }
 
     }
@@ -40,7 +45,7 @@ public class ApostaService {
 
         Aposta aposta = apostaRepository.findById(idAposta).get();
 
-        if (aposta != null) {
+        if (aposta == null) {
             throw new ApostaNaoEncontradaException("Aposta não encontrada");
         }
 
@@ -76,7 +81,7 @@ public class ApostaService {
             } else {
                 throw new PartidaNaoRealizadaException("Partida não realizada");
             }
-            return aposta;
+            return apostaRepository.save(aposta);
 
         } else {
             throw new PartidaNaoEncontradaException("Partida não encontrada");

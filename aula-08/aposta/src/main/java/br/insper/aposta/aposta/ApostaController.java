@@ -18,12 +18,12 @@ public class ApostaController {
     }
 
     @PostMapping
-    public void salvar(@RequestBody Aposta aposta) {
-        apostaService.salvar(aposta);
+    public Aposta salvar(@RequestBody Aposta aposta) {
+        return apostaService.salvar(aposta);
     }
 
     @GetMapping("/{idAposta}")
-    public Aposta getAposta(String idAposta) {
+    public Aposta getAposta(@PathVariable String idAposta) {
         return apostaService.getAposta(idAposta);
     }
 }
