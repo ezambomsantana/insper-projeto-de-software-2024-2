@@ -19,6 +19,7 @@ public class RetornarPartidaDTO {
         retornarPartidaDTO.setPlacarMandante(partida.getPlacarMandante());
         retornarPartidaDTO.setPlacarVisitante(partida.getPlacarVisitante());
         retornarPartidaDTO.setStatus(partida.getStatus());
+
         return retornarPartidaDTO;
     }
 
