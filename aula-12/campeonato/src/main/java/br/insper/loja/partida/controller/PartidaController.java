@@ -1,5 +1,6 @@
 package br.insper.loja.partida.controller;
 
+import br.insper.loja.common.TokenUtils;
 import br.insper.loja.partida.dto.EditarPartidaDTO;
 import br.insper.loja.partida.dto.RetornarPartidaDTO;
 import br.insper.loja.partida.dto.SalvarPartidaDTO;
@@ -17,7 +18,10 @@ public class PartidaController {
     private PartidaService partidaService;
 
     @GetMapping("/partida")
-    public List<RetornarPartidaDTO> getPartida(@RequestParam(required = false) String mandante) {
+    public List<RetornarPartidaDTO> getPartida(@RequestParam(required = false) String mandante,
+                                               @RequestHeader(name = "Authorization") String authorization) {
+
+        String email = TokenUtils.getEmailFromToken(authorization);
         return partidaService.listarPartidas(mandante);
     }
 
