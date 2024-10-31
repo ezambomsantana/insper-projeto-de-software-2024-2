@@ -30,6 +30,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
         http
                 .authorizeHttpRequests(authorize ->
                         authorize
+                                .requestMatchers(HttpMethod.GET, "/swagger-ui/**", "/v3/api-docs/**")
+                                .permitAll()
                                 .anyRequest()
                                 .authenticated()
                 )
